@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<title>Labirinto</title>
+<style>
+button{
+    height:50px;
+    width:50px;
+    font-size:200%;
+    border:none;
+    background-color:white;
+    margin-left:40px;;
+}
+canvas{
+    border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+<span id="msg">Carregando...</span>
+<br>
+<canvas id="gameCanvas" width="300" height="380"></canvas>
+<br>
+<button style="margin-left:135px" id="up" onclick="cima()">^</button>
+<br>
+<button id="left" onclick="esquerda()"><</button>
+<button id="bottom" onclick="baixo()">v</button>
+<button id="right" onclick="direita()">></button>
+
+<script>
+var canvas;
+var canvasContext;
+var horizontalVermelho = 10;
+var horizontalAzul = 240
+var eixoX = 150
+var eixoY = 230
+var aberta = 0
+var lv = 1
+var redX = 100
+var redY = 150
+//----------------[Iniciar Jogo]-----------------
+window.onload = function() {
+    
+    canvas = document.getElementById('gameCanvas');
+    canvasContext = canvas.getContext('2d');
+    setInterval(desenhar, 50);
+}
+//-----------------[Controles]-------------------
+function cima(){
+    eixoY-=10
+}
+function baixo(){
+    eixoY+=10
+}
+function esquerda(){
+    eixoX-=10
+}
+function direita(){
+    eixoX+=10
+}
+//-----------------[Mecanicas]-------------------
+function naoFuja(){
+    // Evita a fuga do jogador
+        if(eixoX > canvas.width-1 || eixoX < 0){
+            eixoX = 150
+        }
+        if(eixoY > canvas.height-1 || eixoY < 0){
+            eixoY = 230
+        }
+}
+function retangulo(X, Y, largura, altura, cor){
+    canvasContext.fillStyle = cor;      
+    canvasContext.fillRect(X, Y, largura, altura);
+}
+//-----------------[Renderizar]------------------
+function desenhar(){
+//-------------------[Nivel 1]-------------------
+    if(lv == 1){ 
+    var Lv1 = setInterval(lv1, 1000); 
+    }
+    
+    function lv1(){
+        // Fundo
+        retangulo(0,0,canvas.width,canvas.height,'grey');
+        // Botao
+        retangulo(50,350,10,10,'darkgrey');
+        // Porta
+        retangulo(250,350,30,70,'grey');
+        // Abrir porta
+        if(eixoX == 50){
+            if(eixoY == 350){
+            aberta=1;
+            }
+        }
+        // Porta aberta
+        if(aberta==1){
+            retangulo(250,350,30,70,'white');
+        }
+        // Entrar na porta
+        if(eixoX > 249 && eixoX < 280){
+            if(eixoY > 349 && eixoY < 420){
+                if(aberta == 1){
+                clearInterval(Lv1);
+                lv = 2;
+                
+                }
+            }
+        }
+        // Evita a fuga do jogador
+        naoFuja();
+        // Jogador
+        retangulo(eixoX,eixoY,10,10,'cyan');
+        // fim carregamento
+document.getElementById("msg").innerHTML = "Nivel 1 - Olá azul, ache a saida 😉"
+    }
+//-------------------[Nivel 2]-------------------    
+    if(lv == 2){
+    document.getElementById("msg").innerHTML = "Nivel 2 - em desenvolvimento"
+    var Lv2 = setInterval(lv2, 1000); 
+    }
+    
+    function lv2(){
+        // Fundo
+        retangulo(0,0,canvas.width,canvas.height,'grey');
+        // Porta
+        retangulo(30,30,30,50,'white');
+        // Entrar na porta
+        if(eixoX > 29 && eixoX < 59){
+            if(eixoY > 29 && eixoY < 79){
+                clearInterval(Lv2);
+                lv = 3;
+                document.getElementById("msg").innerHTML = "Nivel 3 - Não tem nada"
+            }
+        }
+        // Evita a fuga do jogador
+        naoFuja();
+        // Jogador
+        retangulo(eixoX,eixoY,10,10,'cyan');
+        // Inimigo
+        retangulo(redX,redY,10,10,'red');
+        if(redX < eixoX) redX+=0.3;
+        if(redX > eixoX) redX-=0.3;
+        if(redY < eixoY) redY+=0.3;
+        if(redY > eixoY) redY-=0.3;
+        // Morte
+            // tentando fazer...
+            /*
+            if(eixoX == redX && eixoY == redY){
+            eixoX = 150
+            eixoY = 230
+            }
+            */
+    }
+//-------------------[Nivel 3]-------------------
+    if(lv == 3){ 
+    setInterval(lv3, 1000); 
+    }
+    
+    function lv3(){
+        // Fundo
+        retangulo(0,0,canvas.width,canvas.height,'grey');
+        // Evita a fuga do jogador
+        naoFuja();
+        // Jogador
+        retangulo(eixoX,eixoY,10,10,'cyan');
+    }
+}
+</script>
+</body>
+</html>

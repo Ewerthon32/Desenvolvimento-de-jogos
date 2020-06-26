@@ -1,0 +1,357 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+	<header>
+		<span id="life">Vidas: 3</span>
+
+		<span id="pts">Pontuação: 0</span>
+	</header>
+
+	<canvas id="gameCanvas" width="300" style="border-radius: 10px" height="400"></canvas>
+
+	<br>
+
+	<button id="esquerda" onclick="moverEsquerda()"><</button>
+
+	<button id="direita" onclick="moverDireita()">></button>
+
+<script>
+var canvas;
+var canvasContext;
+
+var eixoXjogador = 145;
+var eixoYjogador = 372;
+var velocidadeJogador = 26;
+
+var velocidadeFogo = 4;
+var eixoYFogo = 0;
+var esquerda = document.getElementById("esquerda");
+var direita = document.getElementById("direita");
+
+var vida = 3
+var placar = 0
+var posicao = 1 // Math.ceil(Math.random()*7);
+
+function moverDireita(){
+    // mover jogador para a direita
+    eixoXjogador += velocidadeJogador;
+    if(eixoXjogador > canvas.width-5)
+    eixoXjogador = canvas.width-13;
+    desenhar();
+}
+
+function moverEsquerda(){
+    // mover jogador para a esquerda
+    eixoXjogador -= velocidadeJogador;
+    if(eixoXjogador < 7)
+    eixoXjogador = 7;
+    desenhar();
+}
+
+function moverFogo() {
+    eixoYFogo += velocidadeFogo;
+    
+    if(eixoYFogo > canvas.height+7){
+    placar++;
+    document.getElementById("pts").innerHTML = "Pontuação: " + placar;
+    }
+    
+    /*if(eixoYFogo > canvas.height+7){
+    posicao = Math.ceil(Math.random()*7);
+    }*/
+    
+    if(eixoYFogo > canvas.height+7)
+    eixoYFogo = -15;
+    desenhar();
+}
+
+window.onload = function() {
+    canvas = document.getElementById('gameCanvas');
+    
+    canvasContext = canvas.getContext('2d');
+    
+    var FramesPorSegundo = 25
+    setInterval(desenhar(),
+    1000/FramesPorSegundo);
+    
+    var FramesPorSegundoFogo = 50
+    setInterval(moverFogo,1000/
+    FramesPorSegundoFogo);
+    
+}
+
+function desenhar(){
+    // fundo
+    Retangulo(0, 0, canvas.width, canvas.height, 'cyan');
+    
+    // jogador
+    circulo(eixoXjogador+7, eixoYjogador, 9, 'darkblue')
+
+    // se foi atingido ou não
+    verificarVidaDoJogador();
+
+    // bola de fogo
+    gerarPosicaoDaBolaDeFogo();
+}
+
+function verificarVidaDoJogador(){
+    switch(posicao){
+    case 1:
+        if(eixoYFogo == eixoYjogador && eixoXjogador<60 && eixoXjogador>0){
+            console.log('ta safe');
+        } 
+        if(eixoYFogo == eixoYjogador && eixoXjogador>60){
+            console.log('morreu camarada')
+            vida--;
+            document.getElementById("life").innerHTML = "Vidas: " + vida;
+        }    
+    break;
+    }
+}
+
+function gerarPosicaoDaBolaDeFogo(){
+    switch(posicao){
+case 1:
+// bola 1
+/* bolaDeFogo(20, eixoYFogo, 
+15, 'red'); */
+
+// bola 2
+bolaDeFogo(60, eixoYFogo,
+15, 'red');
+
+// bola 3
+bolaDeFogo(102, eixoYFogo, 
+15, 'red')
+
+// bola 4
+bolaDeFogo(145, eixoYFogo,
+15, 'red');
+
+// bola 5
+bolaDeFogo(190, eixoYFogo,
+15, 'red');
+
+// bola 6
+bolaDeFogo(235, eixoYFogo,
+15, 'red');
+
+// bola 7
+bolaDeFogo(280, eixoYFogo,
+15, 'red');
+break;
+    
+    case 2:
+    // bola 1
+    bolaDeFogo(20, eixoYFogo, 
+    15, 'red');
+    
+    // bola 2
+    /* bolaDeFogo(60, eixoYFogo,
+    15, 'red'); */
+    
+    // bola 3
+    bolaDeFogo(102, eixoYFogo, 
+    15, 'red')
+    
+    // bola 4
+    bolaDeFogo(145, eixoYFogo,
+    15, 'red');
+    
+    // bola 5
+    bolaDeFogo(190, eixoYFogo,
+    15, 'red');
+    
+    // bola 6
+    bolaDeFogo(235, eixoYFogo,
+    15, 'red');
+    
+    // bola 7
+    bolaDeFogo(280, eixoYFogo,
+    15, 'red');
+    break;
+    
+case 3:
+// bola 1
+bolaDeFogo(20, eixoYFogo, 
+15, 'red');
+
+// bola 2
+bolaDeFogo(60, eixoYFogo,
+15, 'red');
+
+// bola 3
+/*bolaDeFogo(102, eixoYFogo, 
+15, 'red')*/
+
+// bola 4
+bolaDeFogo(145, eixoYFogo,
+15, 'red');
+
+// bola 5
+bolaDeFogo(190, eixoYFogo,
+15, 'red');
+
+// bola 6
+bolaDeFogo(235, eixoYFogo,
+15, 'red');
+
+// bola 7
+bolaDeFogo(280, eixoYFogo,
+15, 'red');
+break;
+    
+    case 4:
+    // bola 1
+    bolaDeFogo(20, eixoYFogo, 
+    15, 'red');
+    
+    // bola 2
+    bolaDeFogo(60, eixoYFogo,
+    15, 'red');
+    
+    // bola 3
+    bolaDeFogo(102, eixoYFogo, 
+    15, 'red')
+    
+    // bola 4
+    /*bolaDeFogo(145, eixoYFogo,
+    15, 'red');*/
+    
+    // bola 5
+    bolaDeFogo(190, eixoYFogo,
+    15, 'red');
+    
+    // bola 6
+    bolaDeFogo(235, eixoYFogo,
+    15, 'red');
+    
+    // bola 7
+    bolaDeFogo(280, eixoYFogo,
+    15, 'red');
+    break;
+    
+case 5:
+// bola 1
+bolaDeFogo(20, eixoYFogo, 
+15, 'red');
+
+// bola 2
+bolaDeFogo(60, eixoYFogo,
+15, 'red');
+
+// bola 3
+bolaDeFogo(102, eixoYFogo, 
+15, 'red')
+
+// bola 4
+bolaDeFogo(145, eixoYFogo,
+15, 'red');
+
+// bola 5
+/*bolaDeFogo(190, eixoYFogo,
+15, 'red');*/
+
+// bola 6
+bolaDeFogo(235, eixoYFogo,
+15, 'red');
+
+// bola 7
+bolaDeFogo(280, eixoYFogo,
+15, 'red');
+break;
+    
+    case 6:
+    // bola 1
+    bolaDeFogo(20, eixoYFogo, 
+    15, 'red');
+    
+    // bola 2
+    bolaDeFogo(60, eixoYFogo,
+    15, 'red');
+    
+    // bola 3
+    bolaDeFogo(102, eixoYFogo, 
+    15, 'red')
+    
+    // bola 4
+    bolaDeFogo(145, eixoYFogo,
+    15, 'red');
+    
+    // bola 5
+    bolaDeFogo(190, eixoYFogo,
+    15, 'red');
+    
+    // bola 6
+    /*bolaDeFogo(235, eixoYFogo,
+    15, 'red');*/
+    
+    // bola 7
+    bolaDeFogo(280, eixoYFogo,
+    15, 'red');
+    break;
+    
+case 7:
+// bola 1
+bolaDeFogo(20, eixoYFogo, 
+15, 'red');
+
+// bola 2
+bolaDeFogo(60, eixoYFogo,
+15, 'red');
+
+// bola 3
+bolaDeFogo(102, eixoYFogo, 
+15, 'red')
+
+// bola 4
+bolaDeFogo(145, eixoYFogo,
+15, 'red');
+
+// bola 5
+bolaDeFogo(190, eixoYFogo,
+15, 'red');
+
+// bola 6
+bolaDeFogo(235, eixoYFogo,
+15, 'red');
+
+// bola 7
+/*bolaDeFogo(280, eixoYFogo,
+15, 'red');*/
+break;
+    }
+}
+
+function bolaDeFogo(centerX, centerY, radius, cor){
+    // esfera
+    circulo(centerX, centerY, radius, cor);
+    // primeira chama esquerda 
+    Retangulo(centerX-12, centerY-30, 5, 30, 'orange')
+    // segunda chama esquerda 
+    Retangulo(centerX-4, centerY-37, 5, 30, 'orange')
+    // terceira chama esquerda 
+    Retangulo(centerX+5, centerY-30, 5, 28, 'orange')
+}
+
+function circulo(centerX, centerY, radius, cor){
+    canvasContext.fillStyle = cor;
+    canvasContext.beginPath();
+    canvasContext.arc(centerX, centerY, radius, false, Math.PI*2, true);
+    canvasContext.fill();
+}
+
+function Retangulo(eixoX, eixoY, largura, altura, cor){
+    canvasContext.fillStyle = cor;
+    canvasContext.fillRect(eixoX,eixoY,largura,altura);
+}
+</script>
+</body>
+
+</html>

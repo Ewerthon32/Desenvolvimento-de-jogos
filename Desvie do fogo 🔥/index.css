@@ -1,0 +1,29 @@
+button {
+    width: 130px;
+    height: 70px;
+    margin-left: 12px;
+    margin-top: 10px;
+    border-radius: 10px;
+    font-size: 150%;
+    font-weight: bold;
+}
+
+header {
+    color: lightblue;
+    font-weight: bold;
+    margin: 10px 0px 10px 8px;
+}
+
+body {
+    background-color: black;
+}
+
+#life {
+    color: red;
+    margin-left: 2px;
+}
+
+#pts {
+    color: white;
+    margin-left: 100px;
+}

@@ -1,0 +1,59 @@
+body {
+    background-color: #28065c;
+}
+
+#button {
+    background: -webkit-linear-gradient(left, blue, cyan);
+    border: none;
+    color: gold;
+    margin: 5% 0% 2% 6%;
+    padding: 5% 15%;
+    text-transform: uppercase;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+#timer {
+    margin: 2% 0% 4% 19%;
+    border: none;
+    padding:2%;
+    background-color:white;
+    color:black;
+    text-transform: none;
+    font-size:15px;
+}
+
+#iniciar {
+    background-color: green;
+    border: none;
+    color: #d1d1d1;
+    padding: 0.5% 2%;
+    margin-left: 29%;
+    border-radius: 10px;
+}
+
+span {
+    color:white;
+}
+
+#render {
+    color:white;
+}
+
+#task {
+    margin-left: 3%;
+}
+
+#reset {
+    border: none;
+    color: white;
+    background-color: red;
+    text-decoration: none;
+    padding: 10px 13px;
+    border-radius: 10px;
+    margin-top: 17px;
+}
+
+#reset:active {
+    background-color: darkred;
+}

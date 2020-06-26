@@ -1,0 +1,16 @@
+body {
+    background-color: lightblue;
+    margin-left: 25px;
+}
+
+.menu {
+    margin: 60px 80px;
+    padding: 30px 50px;
+    border: none;
+    background-color: lightgreen;
+}
+
+.jogo {
+    padding: 15%;
+    background: transparent;
+}

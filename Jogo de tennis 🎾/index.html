@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+
+<canvas id="gameCanvas" width="300" height="400"></canvas>
+
+<script>
+// - - - Variaveis - - -
+
+// Tela de jogo
+var canvas;
+var canvasContext;
+var FramesPorSegundo = 45
+
+// Player 1
+var horizontalAzul = 240
+var VelocidadeAzul = 5
+var larguraAzul = 70
+
+// Player 2
+var horizontalVermelho = 10
+var VelocidadeVermelho = 5
+
+var bola = {
+    eixoHorizontal: 150,
+    eixoVertical: 235,
+    velocidadeHorizontal: 2,
+    velocidadeVertical: 5
+}
+
+// - - - - - - - - - - - -
+
+window.onload = function() {
+
+    iniciar_jogo()
+
+}
+
+function iniciar_jogo() {
+    
+    canvas = document.getElementById('gameCanvas')
+    canvasContext = canvas.getContext('2d')
+    
+    setInterval( () => {
+        
+        MoverBola()
+        
+        Renderizar()
+        
+    }, 1000/FramesPorSegundo )
+    
+    canvas.addEventListener('mousemove', (evt) => {
+        
+        var mousePos = LocalizarMouse(evt)
+
+        horizontalAzul = mousePos.x - (larguraAzul/2)
+
+    });
+
+}
+
+function MoverBola() {
+    
+    // mover bola verticalmente
+    bola.eixoVertical += bola.velocidadeVertical
+    
+    // mover bola horizontalmente
+    bola.eixoHorizontal += bola.velocidadeHorizontal
+    
+    inverter_direção()
+    
+}
+
+function inverter_direção() {
+    
+    if(bola.eixoVertical < 0) bola.velocidadeVertical = -bola.velocidadeVertical
+    
+    if(bola.eixoVertical > canvas.height) {
+        
+        if(bola.eixoHorizontal > horizontalAzul && bola.eixoHorizontal < horizontalAzul+larguraAzul) {
+            
+            bola.velocidadeVertical = -bola.velocidadeVertical
+            
+        } else {
+            
+            ballReset()
+            
+        }
+    }
+    
+    if(bola.eixoHorizontal < 0) bola.velocidadeHorizontal = -bola.velocidadeHorizontal
+    if(bola.eixoHorizontal > canvas.width) bola.velocidadeHorizontal = -bola.velocidadeHorizontal
+    
+}
+
+function Renderizar() {
+    
+    // fundo
+    Retangulo(0, 0, canvas.width, canvas.height, 'green') //'black') 
+    
+    // bastão de cima
+    // Retangulo(horizontalVermelho, 0, 70, 10, 'red') //'white')
+    
+    // bastão de baixo
+    Retangulo(horizontalAzul, 390, larguraAzul, 10, 'blue') //'white')
+    
+	// bola
+	circulo(bola.eixoHorizontal, bola.eixoVertical, 6, 'white')
+	
+}
+
+function LocalizarMouse(evt) {
+    
+    var rect = canvas.getBoundingClientRect()
+    var root = document.documentElement
+    
+    var mouseX = evt.clientX - rect.left - root.scrollLeft
+    var mouseY = evt.clientY - rect.top - root.scrollTop
+    
+    return {
+        x:mouseX, y:mouseY
+    }
+    
+}
+
+function ballReset() {
+    
+    bola.velocidadeVertical = -bola.velocidadeVertical
+    
+    bola.eixoHorizontal = canvas.width/2
+    bola.eixoVertical = canvas.height/2
+    
+}
+
+function circulo(centerX, centerY, radius, drawColor) {
+    
+	canvasContext.fillStyle = drawColor
+	canvasContext.beginPath()
+	canvasContext.arc(centerX, centerY, radius, false, Math.PI*2, true)
+	canvasContext.fill()
+	
+}
+
+function Retangulo(eixoX, eixoY, largura, altura, cor) {
+    
+    canvasContext.fillStyle = cor
+    canvasContext.fillRect(eixoX,eixoY,largura,altura)
+    
+}
+</script>
+
+</html>
