@@ -1,0 +1,131 @@
+/* Estilos do corpo */
+/* do documento     */         
+body {
+    background-color: orange;
+    height: 90%;
+    width: 90%;
+}
+
+/* Tela inicial */
+.fa.fa-gamepad {
+    margin-left: 55px;
+    background-color: purple;
+    color: white;
+    width: 31%;
+    height: 50px;
+    font-size: 175%;
+    border-radius: 10px;
+}
+
+/* Icone de voltar ao */
+/* menu principal.    */
+.fa.fa-chevron-circle-left {
+    color: blue;
+    font-size: 150%;
+}
+
+/* Icone das conquistas */
+/* do jogador           */       
+.fa.fa-trophy {
+    margin-top: -10%;
+    margin-left: 85%;
+    font-size: 125%;
+    color: blue;
+}
+
+/* Tela de conquistas */        
+.conquistas {
+    filter: grayscale(100%);
+}
+
+/* Menu inferior */
+.menu {
+    
+}
+
+.menu.buttons,
+.fa.fa-shopping-cart,
+.fa.fa-pagelines,
+.fa.fa-paint-brush {
+    background-color: brown;
+    color: white;
+    width: 31%;
+    height: 50px;
+    font-size: 132%;
+}
+
+.fa.fa-shopping-cart:hover,
+.fa.fa-pagelines:hover,
+.fa.fa-paint-brush:hover {
+    color: orange;
+}
+/* - - - - - */
+
+/* Laranjeira */
+#arvore {
+    border-radius: 50px;
+}
+
+/* Laranjeira ao clickar */
+#arvore:active {
+    background-color: darkorange;
+}
+
+/* Todos os botoes do documento */
+button {
+    border: none;
+}
+
+/* Tela de compras */
+#mercado {
+    margin-left: 3px;
+    padding: 5px 5px;
+    font-size: 100%;
+}
+
+/* Melhorias na laranjeira */
+.up {
+    background-color: green;
+    color: white;
+    padding: 13px 13px;
+    margin-top: 13px;
+    margin-bottom: 0%;
+    font-size: 70%;
+    text-decoration: none;
+    text-transform: none;
+    border-radius: 10px;
+}
+
+.up:active {
+    background-color: darkgreen;
+}
+/* ------------------ */
+
+/* Icone do contador de laranjas */
+.fa.fa-leaf {
+    margin-left: 90px;
+    color: darkgreen;
+}
+
+/* Documentar esta    */
+/* parte do codigo... */
+.color.buttons {
+    color: white;
+    font-weight: bold;
+    font-size: 70%;
+    margin-top: 41px;
+    margin-bottom: 2.5px;
+    background-color: purple;
+    border-radius: 10px;
+    padding: 17px 14px;
+}
+
+#inativo {
+    background-color: grey;
+}
+
+#barraca {
+    border-radius: 0%;
+    height: 240px; 
+    width: 230px;
+}
