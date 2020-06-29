@@ -1,5 +1,107 @@
-//--------[Variaveis]----------
+// Visuais
+function exibir(local, valor) {
+document.getElementById(local).innerHTML = valor
+}
 
+var cabecalho =      
+'<div>' +
+'<i class="fa fa-chevron-circle-left" onclick="TelaDeInicio()"></i>' +
+'<i class="fa fa-trophy" onclick="TelaDeConquistas()"></i>' +
+'</div>'
+                
+var rodape =
+'<div class="menu">' +
+'<button class="fa fa-paint-brush" onclick="TelaDeCustomizacao()"></button>' +
+'<button class="fa fa-pagelines" onclick="TelaLaranjeira()"></button>' +
+'<button class="fa fa-shopping-cart" onclick="TelaDaBarraca()" style="margin-top: 10px"></button>' +
+'</div>'
+
+var telaDeInicio = 
+'<h1>Vendedor de laranja</h1>' +
+'<button class="fa fa-gamepad" onclick="TelaLaranjeira()"></button>'
+
+var telaDeConquistas =
+'<i class="fa fa-chevron-circle-left" onclick="TelaLaranjeira()"></i>' +
+'<p id="trofeu"> [ Conquistas - em breve ] </p>' +
+'<img class="conquistas" src="./assets/Conquista1.jpg" height = "60px" width = "60px">' +
+'<br>' +
+'<img class="conquistas" src="./assets/Conquista2.jpg" height = "60px" width = "60px">'
+
+var telaDeCustomizacao =
+cabecalho +
+'<br>' +
+'<div>' +
+'<button class="color buttons" onclick="comprar()">' +
+"Tema claro | 1000 laranjas" +
+"</button>" +
+"<br>" +
+'<button id="inativo" class="color buttons">' +
+"Indisponivel" +
+//"Tema escuro | 2000 laranjas" +
+"</button>" +
+"<br>" +
+'<button class="color buttons" onclick="padrao()">' +
+"Tema padrão" +
+"</button>" +
+"<br>" +
+rodape; 
+
+var telaDaBarraca =
+cabecalho +
+'<div class="content">' +
+'<img src="./assets/HomenNaBarraca.png" id = "barraca" height = "230px" width = "230px"/> ' +
+'<p>Em breve...</p>' +
+'<br />' +
+'<br />' +
+rodape
+
+// Telas
+function TelaDeInicio() {
+exibir("screen", telaDeInicio)
+}
+
+function TelaDeConquistas() {
+exibir("screen", telaDeConquistas)
+}
+
+function TelaDeCustomizacao() {   
+exibir("screen",telaDeCustomizacao)         
+aplicarTema(1.1);
+}
+
+function TelaLaranjeira() {
+        
+    autoClick.preco--
+    melhoria.preco += 20;
+    
+    document.getElementById("screen").innerHTML =
+    cabecalho +                  
+    '<div class="content">' +
+    '<img src="./assets/Laranjeira.png" id="arvore" onclick = "clicker()"/>' + '<br>' +
+    '<i class="fa fa-leaf"></i> <span id="render"> Laranjas: ' + num + '</span>' +
+    '<br />' +
+    '</div >' +
+    '<div class="buttons">' +
+    '<button id="multiplicador" class="up" onclick="melhorar()"> Comprar melhoria | Custo: ' + melhoria.preco + ' laranjas </button>' +
+    '<br />' +
+    '<button id="autoClick" class="up"> Comprar clique automatico | Custo: ' + autoClick.preco + ' laranjas</button>' +
+    '</div>' +                  
+    rodape
+        
+    if(melhoria.pontos > 20) renderMelhoria();
+    melhoria.preco -= 20;
+    var autoC = document.getElementById("autoClick");
+    autoC.addEventListener("click", setTime);
+    autoClick.preco++;
+    aplicarTema(1);
+}
+
+function TelaDaBarraca() {
+exibir("screen", telaDaBarraca)
+aplicarTema(1.3)  
+}
+
+// Variaveis
 var num = 0
 
 var melhoria = {
@@ -14,31 +116,15 @@ var autoClick = {
     buy: 0,
     preco: 31
 }
-       
-var cabecalho =      
-'<div>' +
-'<i class="fa fa-chevron-circle-left" onclick="home()"></i>' +
-'<i class="fa fa-trophy" onclick="abrirConquistas()"></i>' +
-'</div>'
-                
-var rodape =
-'<div class="menu">' +
-'<button class="fa fa-paint-brush" onclick="abrirCustomizar()"></button>' +
-'<button class="fa fa-pagelines" onclick="TelaLaranjeira()"></button>' +
-'<button class="fa fa-shopping-cart" onclick="abrirBarraca()" style="margin-top: 10px"></button>' +
-'</div>'
-                
-//------[Função clicker]-------
 
+// Função clicker
 function clicker() {
 
-        render()
+    render()
 
-        if (melhoria.buy == 1) {
-            
+    if (melhoria.buy == 1) {
         mtply()
-        
-        }
+    }
         
 }
 
@@ -60,56 +146,6 @@ function render() {
         
     }
 
-}
-
-//------[Tela de inicio]-------
-
-function home() {
-
-    document.getElementById("screen").innerHTML =
-    '<h1>Vendedor de laranja</h1>' +
-    '<button class="fa fa-gamepad" onclick="TelaLaranjeira()"></button>'
-
-}
-
-//----[Tela de conquistas]-----
-
-function abrirConquistas() {
-    
-    document.getElementById("screen").innerHTML = 
-    '<i class="fa fa-chevron-circle-left" onclick="TelaLaranjeira()"></i>' +
-    '<p id="trofeu"> [ Conquistas - em breve ] </p>' +
-    '<img class="conquistas" src="https://docs.google.com/uc?id=1-Pzc4m4j0Fm8fvjUN4sAn8JeeSvWWUt4" height = "60px" width = "60px">' +
-    '<img class="conquistas" src="https://docs.google.com/uc?id=1ve0xHeU-KOyrMZ2IEtBLr-HaG2QdYE5p" height = "60px" width = "60px">'
-    
-}
-
-//---[__Botões inferiores__]---
-
-//--------[Customizar]---------
-
-function abrirCustomizar() {
-        
-        document.getElementById("screen").innerHTML =
-        cabecalho +
-        '<br>' +
-        '<div>' +
-        '<button class="color buttons" onclick="comprar()">' +
-        "Tema claro | 1000 moedas" +
-        "</button>" +
-        "<br>" +
-        '<button id="inativo" class="color buttons">' +
-        "Indisponivel" +
-        //"Tema escuro | 2000 moedas" +
-        "</button>" +
-        "<br>" +
-        '<button class="color buttons" onclick="padrao()">' +
-        "Tema padrão" +
-        "</button>" +
-        "<br>" +
-        rodape;          
-        
-        aplicarTema(1.1);
 }
 
 //----------[Temas]------------
@@ -201,74 +237,13 @@ function padrao() {
     claro = 0
     var b = document.getElementsByTagName("body"); 
     b[0].style.backgroundColor = "orange"
-    abrirCustomizar()
+    TelaDeCustomizacao()
     
 }
-   
-//--------[Laranjeira]---------
 
-function TelaLaranjeira() {
-        
-    autoClick.preco--
-    melhoria.preco += 20;
-    
-    document.getElementById("screen").innerHTML =
-    cabecalho +                  
-    '<div class="content">' +
-    '<img src="https://docs.google.com/uc?id=1A1KSurzpwkt13zNblShN_bSx31O1laib" id="arvore" onclick = "clicker()"/>' + '<br>' +
-    '<i class="fa fa-leaf"></i> <span id="render"> Laranjas: ' + num + '</span>' +
-    '<br />' +
-    '</div >' +
-    '<div class="buttons">' +
-    '<button id="multiplicador" class="up" onclick="melhorar()"> Comprar melhoria | Custo: ' + melhoria.preco + ' moedas </button>' +
-    '<br />' +
-    '<button id="autoClick" class="up"> Comprar clique automatico | Custo: ' + autoClick.preco + ' moedas</button>' +
-    '</div>' +                  
-    rodape
-        
-    if(melhoria.pontos > 20) renderMelhoria();
-    melhoria.preco -= 20;
-    var autoC = document.getElementById("autoClick");
-    autoC.addEventListener("click", setTime);
-    autoClick.preco++;
-    aplicarTema(1);
-}
-
-//----[Barraca de laranja]-----
-
-function abrirBarraca() {
-    
-    document.getElementById("screen").innerHTML =
-    cabecalho +
-    '<div class="content">' +
-    '<img src="https://docs.google.com/uc?id=1xQiH5MqkjEpqcDmTS6ZvfqpEpA5UzJyd" id = "barraca" height = "230px" width = "230px"/> ' +
-    '<p>Em breve...</p>' +
-    '<br />' +
-    '<br />' +
-    rodape
-    
-    aplicarTema(1.3)
-        
-}
-
-//-[Melhoria ponto por clique]-
-
+// Melhoria ponto por clique
 function mtply() {
-    
-    arrumaBug()
-    
-    for (i = 0; i < melhoria.loop; i++) {
-        render()
-    }
-    
-}
-
-function arrumaBug() {
-    
-    if (melhoria.pontos > 9) {
-        num += melhoria.bug;
-    }
-    
+for (i = 0; i < melhoria.loop; i++) render() 
 }
 
 function melhorar() {
@@ -290,17 +265,11 @@ function melhorar() {
 
 function renderMelhoria() {
     document.getElementById("multiplicador").innerHTML =
-    "+" +
-    melhoria.pontos +
-    " moedas por clique" +
-    " | " +
-    "Melhorar: " +
-    melhoria.preco +
-    " moedas"
+    "+" + melhoria.pontos + " laranjas por clique" +
+    " | " + "Melhorar: " + melhoria.preco + " laranjas"
 }
 
-//---[Melhoria auto clique]----
-
+// Melhoria auto clique
 function setTime() {
     
     autoClick.Buy = 1;
@@ -313,7 +282,5 @@ function setTime() {
 }
 
 function auto() {
-    
     render()
-    
 }

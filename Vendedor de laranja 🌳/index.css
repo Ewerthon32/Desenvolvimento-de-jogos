@@ -71,6 +71,12 @@ body {
     background-color: darkorange;
 }
 
+/* Icone do contador de laranjas */
+.fa.fa-leaf {
+    margin-left: 80px;
+    color: darkgreen;
+}
+
 /* Todos os botoes do documento */
 button {
     border: none;
@@ -95,16 +101,8 @@ button {
     text-transform: none;
     border-radius: 10px;
 }
-
 .up:active {
     background-color: darkgreen;
-}
-/* ------------------ */
-
-/* Icone do contador de laranjas */
-.fa.fa-leaf {
-    margin-left: 90px;
-    color: darkgreen;
 }
 
 /* Documentar esta    */
