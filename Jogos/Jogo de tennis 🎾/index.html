@@ -4,36 +4,31 @@
 <canvas id="gameCanvas" width="300" height="400"></canvas>
 
 <script>
-// - - - Variaveis - - -
 
-// Tela de jogo
-var canvas;
-var canvasContext;
+// Tela
+var canvas, canvasContext;
 var FramesPorSegundo = 45
 
 // Player 1
-var horizontalAzul = 240
-var VelocidadeAzul = 5
-var larguraAzul = 70
+var horizontalJogador1 = 240
+var velocidadeJogador1 = 5
 
 // Player 2
-var horizontalVermelho = 10
-var VelocidadeVermelho = 5
+var horizontalJogador2 = 10
+var velocidadeJogador2 = 5
 
+// Outros
 var bola = {
     eixoHorizontal: 150,
     eixoVertical: 235,
-    velocidadeHorizontal: 2,
-    velocidadeVertical: 5
+    velocidadeHorizontal: 2.5,
+    velocidadeVertical: 5.5
 }
+var larguraDaBarra = 70
+var placar1 = 0
+var placar2 = 0
 
-// - - - - - - - - - - - -
-
-window.onload = function() {
-
-    iniciar_jogo()
-
-}
+window.onload = () => iniciar_jogo()
 
 function iniciar_jogo() {
     
@@ -43,7 +38,6 @@ function iniciar_jogo() {
     setInterval( () => {
         
         MoverBola()
-        
         Renderizar()
         
     }, 1000/FramesPorSegundo )
@@ -51,14 +45,25 @@ function iniciar_jogo() {
     canvas.addEventListener('mousemove', (evt) => {
         
         var mousePos = LocalizarMouse(evt)
-
-        horizontalAzul = mousePos.x - (larguraAzul/2)
+        horizontalJogador1 = mousePos.x - (larguraDaBarra/2)
 
     });
 
 }
 
+function MovimentoInimigo() {
+
+    var centroDoEixo = horizontalJogador2 + (larguraDaBarra/2)
+
+    if (centroDoEixo < bola.eixoHorizontal) horizontalJogador2 += 2
+    
+    else horizontalJogador2 -= 2
+
+}
+
 function MoverBola() {
+
+    MovimentoInimigo()
     
     // mover bola verticalmente
     bola.eixoVertical += bola.velocidadeVertical
@@ -72,39 +77,55 @@ function MoverBola() {
 
 function inverter_direção() {
     
-    if(bola.eixoVertical < 0) bola.velocidadeVertical = -bola.velocidadeVertical
-    
-    if(bola.eixoVertical > canvas.height) {
-        
-        if(bola.eixoHorizontal > horizontalAzul && bola.eixoHorizontal < horizontalAzul+larguraAzul) {
+    if (bola.eixoVertical < 0) {
+
+        if (bola.eixoHorizontal > horizontalJogador2 && bola.eixoHorizontal < horizontalJogador2+larguraDaBarra) {
+            
+            bola.velocidadeVertical = -bola.velocidadeVertical
+
+        } else {
+            
+            ballReset()
+            placar1++
+        }
+
+    }
+
+    if (bola.eixoVertical > canvas.height) {
+
+        if (bola.eixoHorizontal > horizontalJogador1 && bola.eixoHorizontal < horizontalJogador1+larguraDaBarra) {
             
             bola.velocidadeVertical = -bola.velocidadeVertical
             
         } else {
             
             ballReset()
-            
+            placar2++
         }
     }
     
-    if(bola.eixoHorizontal < 0) bola.velocidadeHorizontal = -bola.velocidadeHorizontal
-    if(bola.eixoHorizontal > canvas.width) bola.velocidadeHorizontal = -bola.velocidadeHorizontal
-    
+    if (bola.eixoHorizontal < 0) bola.velocidadeHorizontal = -bola.velocidadeHorizontal
+    if (bola.eixoHorizontal > canvas.width) bola.velocidadeHorizontal = -bola.velocidadeHorizontal
+
 }
 
 function Renderizar() {
     
     // fundo
-    Retangulo(0, 0, canvas.width, canvas.height, 'green') //'black') 
+    Retangulo(0, 0, canvas.width, canvas.height, 'black') 
     
     // bastão de cima
-    // Retangulo(horizontalVermelho, 0, 70, 10, 'red') //'white')
+    Retangulo(horizontalJogador2, 0, 70, 10, 'white')
     
     // bastão de baixo
-    Retangulo(horizontalAzul, 390, larguraAzul, 10, 'blue') //'white')
+    Retangulo(horizontalJogador1, 390, larguraDaBarra, 10, 'white')
     
 	// bola
-	circulo(bola.eixoHorizontal, bola.eixoVertical, 6, 'white')
+    circulo(bola.eixoHorizontal, bola.eixoVertical, 6, 'white')
+    
+    // pontuacao
+    canvasContext.fillText( placar2 , 270, 120)
+    canvasContext.fillText( placar1 , 270, 300)
 	
 }
 
